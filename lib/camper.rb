@@ -7,8 +7,8 @@ require 'camping'
 require 'camping/session'
 require 'camping/ar'
 require 'camping/ar/session'
-require 'camper/page_caching'
-require 'camper/camping_helpers'
+require 'camper/camper_page_caching'
+require 'camper/camper_helpers'
 require 'ftools'
 
 # A Rack middleware for reading X-Sendfile. Should only be used in development. -from camping/server
