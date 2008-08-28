@@ -47,7 +47,7 @@ module Camping
         @app       = @app_name.capitalize.constantize
 
         @app::Helpers.module_eval do
-            include PageCahing
+            include PageCaching
             include CampingHelpers
         end
 

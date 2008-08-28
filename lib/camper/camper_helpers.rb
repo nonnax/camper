@@ -23,16 +23,26 @@
 #
 
 module CampingHelpers
-  def ago(from)
-    #stolen from Rails DateHelper
-    t = (((Time.now - from).abs)/60).round
-    case t
-      when 0..1            then 'less than a minute'
-      when 2..44           then "#{t} minutes"
-      when 45..89          then 'about 1 hour'
-      when 90..1439        then "about #{(t.to_f / 60.0).round} hours"
-      when 1440..2879      then '1 day'
-      else                      "#{(t / 1440).round} days"
-    end + ' ago'
-  end
+    def ago(from)
+        #stolen from Rails DateHelper
+        t = (((Time.now - from).abs)/60).round
+        case t
+        when 0..1            then 'less than a minute'
+        when 2..44           then "#{t} minutes"
+        when 45..89          then 'about 1 hour'
+        when 90..1439        then "about #{(t.to_f / 60.0).round} hours"
+        when 1440..2879      then '1 day'
+        else                      "#{(t / 1440).round} days"
+        end + ' ago'
+    end
+    # backwards compatibility with Pre-Camping 2.0 apps
+    def env
+        @env
+    end
+    # stolen from linkr o_O
+    # module Controllers must provide a New class or just roll your own
+    def bookmarklet
+        text 'Drag the following link to your toolbar to submit with a single click: '
+        a 'bookmark-it!', :href =>"javascript:location.href='http:#{URL(New)}?page_link='+encodeURIComponent(location.href)+'&description='+encodeURIComponent(document.title)"
+    end
 end

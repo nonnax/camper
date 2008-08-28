@@ -1,6 +1,0 @@
-simplifies camping deployment
-
-require 'camper'
-Camping.makes :Blog
-#..your code
-Camping.start
