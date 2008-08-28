@@ -16,7 +16,7 @@ spec=Gem::Specification.new do |s|
   s.description = %q{Camper: Simple camping deployment}
   s.has_rdoc = true
   s.authors = ["Ronald Evangelista"]
-  s.files =   %w|Rakefile README CHANGELOG lib/camper.rb lib/camper_page_caching.rb lib/camper_helpers.rb|
+  s.files =   %w|Rakefile README CHANGELOG lib/camper.rb lib/camper/camper_page_caching.rb lib/camper/camper_helpers.rb|
   s.add_dependency(%q<camping>, [">= 1.9.0"])
 end
 
