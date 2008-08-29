@@ -39,6 +39,9 @@ module CampingHelpers
     def env
         @env
     end
+    # See AR validation documentation for details on validations.
+    def errors_for(o); ul.errors { o.errors.each_full { |er| li er } } if o.errors.any?; end
+
     # stolen from linkr o_O
     # module Controllers must provide a New class or just roll your own
     def bookmarklet
