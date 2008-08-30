@@ -44,7 +44,7 @@ module Camping
       # this is your camping app
       Camping.goes symbol
       @app_name  = symbol.to_s.underscore
-      @app       = @app_name.capitalize.constantize
+      @app       = symbol.to_s.constantize
 
       @app::Helpers.module_eval do
          include PageCaching
