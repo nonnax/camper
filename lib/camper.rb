@@ -38,11 +38,12 @@ module Camping
    class << self
       #class instance var accessors
       attr_reader *VALID_KEYS
+      alias_method :_old_goes_, :goes
    end
 
-   def self.makes(symbol)
+   def self.goes(symbol)
       # this is your camping app
-      Camping.goes symbol
+      Camping._old_goes_ symbol
       @app_name  = symbol.to_s.underscore
       @app       = symbol.to_s.constantize
 
@@ -65,7 +66,7 @@ module Camping
 
       instance_eval do
          opts.each do |k, v|
-            instance_variable_set("@#{k}", v) if Camping::VALID_KEYS.include?(k.to_s)
+            instance_variable_set("@#{k}", v)
          end
       end
 
