@@ -47,6 +47,9 @@ module Camping
       @app_name  = symbol.to_s.underscore
       @app       = symbol.to_s.constantize
 
+      @app.module_eval do 
+          Mab.set(:indent, 1) #debug html
+      end  
       @app::Helpers.module_eval do
          include PageCaching
          include CampingHelpers

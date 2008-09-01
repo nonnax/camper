@@ -39,6 +39,9 @@ module CampingHelpers
     def env
         @env
     end
+    def un(text)
+        Rack::Utils.unescape(text)
+    end
     # See AR validation documentation for details on validations.
     def errors_for(o); ul.errors { o.errors.each_full { |er| li er } } if o.errors.any?; end
 
@@ -46,6 +49,6 @@ module CampingHelpers
     # module Controllers must provide a New class or just roll your own
     def bookmarklet
         text 'Drag the following link to your toolbar to submit with a single click: '
-        a 'bookmark-it!', :href =>"javascript:location.href='http:#{URL(New)}?page_link='+encodeURIComponent(location.href)+'&description='+encodeURIComponent(document.title)"
+        a 'bookmark-it!', :href =>"javascript:location.href='http:#{URL(New)}?page_link='+encodeURIComponent(location.href)+'&description='+encodeURIComponent(document.title)+'&body='+encodeURIComponent(window.getSelection())"
     end
 end
