@@ -60,8 +60,8 @@ module CampingHelpers
 
     # Here's a little technique you can use to support multiple layouts within a Camping app.
     def layout
-        @layout ||= :default
-        send("#{@current_layout"){ yield }
+        @current_layout ||= :default_layout
+        send("#{@current_layout}"){ yield }
     end
 
     def use_layout(layout_method=:layout_method)
