@@ -34,7 +34,7 @@ class XSendfile
 end
 
 module Camping
-   VALID_KEYS = %w[app app_name port adapter database user password logger timestamp]
+   VALID_KEYS = %w[app app_name port root adapter database user password logger timestamp]
    class << self
       #class instance var accessors
       attr_reader *VALID_KEYS
@@ -47,9 +47,9 @@ module Camping
       @app_name  = symbol.to_s.underscore
       @app       = symbol.to_s.constantize
 
-      @app.module_eval do 
+      @app.module_eval do
           Mab.set(:indent, 1) #debug html
-      end  
+      end
       @app::Helpers.module_eval do
          include PageCaching
          include CampingHelpers
@@ -100,7 +100,7 @@ module Camping
       end
 
       puts "%s camped at localhost %s" % [app, port]
-      Rack::Handler::Mongrel.run runapp, :Port => Camping.port
+      Rack::Handler::Mongrel.run runapp, :Port => Camping.port, :Root=> Camping.root
    rescue
       p [$!, opts]
    end
