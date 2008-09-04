@@ -1,2 +1,4 @@
 8/20/2008 initial release
 9/1/2008  dropped Camping.makes in favor of Camping.goes method
+9/4/2008  camper_helpers api change from _content_for to block_content_for.
+	  added multi-layout support for layout method.

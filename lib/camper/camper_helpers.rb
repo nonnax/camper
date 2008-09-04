@@ -52,7 +52,7 @@ module CampingHelpers
         text 'Drag the following link to your toolbar to submit with a single click: '
         a 'bookmark-it!', :href =>"javascript:location.href='http:#{URL(New)}?page_link='+encodeURIComponent(location.href)+'&description='+encodeURIComponent(document.title)+'&body='+encodeURIComponent(window.getSelection())"
     end
-    
+
     # layout/formatters
     def block_content_for(html_section=:default, &block)
         instance_variable_set "@_content_for_#{html_section}", block
@@ -61,6 +61,12 @@ module CampingHelpers
     # Here's a little technique you can use to support multiple layouts within a Camping app.
     def layout
         @layout ||= :default
-        send("#{@layout}_layout") { yield }
+        send("#{@current_layout"){ yield }
+    end
+
+    def use_layout(layout_method=:layout_method)
+        self.class.class_eval do
+            alias_method layout_method, :layout
+        end
     end
 end

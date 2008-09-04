@@ -48,6 +48,7 @@ module Camping
       @app       = symbol.to_s.constantize
 
       @app.module_eval do
+          P = "<h1>#{Camping.app} Problem!</h1><h2>%s</h2>"
           Mab.set(:indent, 1) #debug html
       end
       @app::Helpers.module_eval do
