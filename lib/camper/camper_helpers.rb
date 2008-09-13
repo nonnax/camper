@@ -44,7 +44,11 @@ module CampingHelpers
         Rack::Utils.unescape(text)
     end
     # See AR validation documentation for details on validations.
-    def errors_for(o); ul.errors { o.errors.each_full { |er| li er } } if o.errors.any?; end
+    def errors_for(o);
+        mab do
+         ul.errors { o.errors.each_full { |er| li er } }
+        end if o.errors.any?
+    end
 
     # stolen from linkr o_O
     # module Controllers must provide a New class or just roll your own
