@@ -23,6 +23,7 @@
 #
 
 module CampingHelpers
+
     def ago(from)
         #stolen from Rails DateHelper
         t = (((Time.now - from).abs)/60).round
@@ -73,4 +74,5 @@ module CampingHelpers
             alias_method layout_method, :layout
         end
     end
+
 end

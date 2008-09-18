@@ -34,7 +34,7 @@ class XSendfile
 end
 
 module Camping
-    VALID_KEYS = %w[app app_name port root adapter database user password logger timestamp]
+    VALID_KEYS = %w[app app_name port root adapter database backup user password logger timestamp]
     class << self
         #class instance var accessors
         attr_reader *VALID_KEYS
@@ -78,6 +78,7 @@ module Camping
             opts[:user]     ||= 'root'
             opts[:password] ||= ''
             opts[:logger]   ||= nil
+            opts[:backup]   ||= nil
             opts[:database] ||= /sqlite/.match(opts[:adapter]) ? File.expand_path("#{app_name}.sqlite3") : app_name
 
             instance_eval do
@@ -99,6 +100,17 @@ module Camping
                 app::Models::Base.colorize_logging = false
                 app::Models::Base.logger           = Logger.new(logfile) # comment me out if you don't want to log
             end
+
+            if backup
+               case adapter
+               when 'sqlite3'
+                    File.copy opts[:database], [opts[:database], timestamp, "sqlite3"].join(".")
+               when 'mysql'
+                    system("mysqldump -u root --password=#{password} --database #{database} > db/backup-#{timestamp}.sql")
+               else
+               end
+            end
+
 
             app::Models::Base.allow_concurrency = true
             app.create
