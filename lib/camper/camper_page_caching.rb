@@ -24,7 +24,10 @@ module PageCaching
     end
 
     def cached
-        if (env['REQUEST_URI'] =~ /^((.*)\/)?([^\/]*)$/)
+        # allow query strings like: /blog/1?page=1&page_num=10 to become /blog/1/page/1/page_num/10
+        request_uri=env['REQUEST_URI'].gsub(/[=&?]/,'/')
+
+        if (request_uri =~ /^((.*)\/)?([^\/]*)$/)
             path = File.join(ROOT, 'cache', $1)
             file = File.join(path, ($3 == '' && $1 == '/' ? 'index.html' : name_for_resource($3)))
             unless cached?(file)
