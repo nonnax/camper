@@ -10,6 +10,7 @@ require 'camping/ar/session'
 require 'camper/camper_page_caching'
 require 'camper/camper_helpers'
 require 'ftools'
+require 'socket'
 
 # A Rack middleware for reading X-Sendfile. Should only be used in development. -from camping/server
 class XSendfile
@@ -39,6 +40,20 @@ module Camping
         #class instance var accessors
         attr_reader *VALID_KEYS
         alias_method :_old_goes_, :goes
+
+        # http://coderrr.wordpress.com/2008/05/28/get-your-local-ip-address/
+        # useful for creating bookmarklets 
+        def local_ip
+            orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
+
+            UDPSocket.open do |s|
+                s.connect '64.233.187.99', 1 # may be google?
+                s.addr.last
+            end
+        ensure
+            Socket.do_not_reverse_lookup = orig
+        end
+
 
         def init
 
@@ -102,13 +117,13 @@ module Camping
             end
 
             if backup
-               case adapter
-               when 'sqlite3'
+                case adapter
+                when 'sqlite3'
                     File.copy opts[:database], [opts[:database], timestamp, "sqlite3"].join(".")
-               when 'mysql'
+                when 'mysql'
                     system("mysqldump -u root --password=#{password} --database #{database} > db/backup-#{timestamp}.sql")
-               else
-               end
+                else
+                end
             end
 
 
