@@ -9,6 +9,7 @@ require 'camping/ar'
 require 'camping/ar/session'
 require 'camper/camper_page_caching'
 require 'camper/camper_helpers'
+require 'camper/crest'
 require 'ftools'
 require 'socket'
 
@@ -42,7 +43,7 @@ module Camping
         alias_method :_old_goes_, :goes
 
         # http://coderrr.wordpress.com/2008/05/28/get-your-local-ip-address/
-        # useful for creating bookmarklets 
+        # useful for creating bookmarklets
         def local_ip
             orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
 
@@ -56,7 +57,7 @@ module Camping
 
 
         def init
-
+            @app.send(:include, CRestful)     # makes Restful magic
             @app.module_eval do
                 Mab.set(:indent, 1) #debug html
             end
@@ -118,8 +119,8 @@ module Camping
 
             if backup
                 case adapter
-                when 'sqlite3'
-                    File.copy opts[:database], [opts[:database], timestamp, "sqlite3"].join(".")
+                when 'sqlite', 'sqlite3'
+                    File.copy opts[:database], [File.basename(opts[:database],'.*'), timestamp, "sqlite3"].join(".")
                 when 'mysql'
                     system("mysqldump -u root --password=#{password} --database #{database} > db/backup-#{timestamp}.sql")
                 else

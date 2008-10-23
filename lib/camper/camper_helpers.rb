@@ -58,12 +58,7 @@ module CampingHelpers
         a 'bookmark-it!', :href =>"javascript:location.href='http:#{URL(New)}?page_link='+encodeURIComponent(location.href)+'&description='+encodeURIComponent(document.title)+'&body='+encodeURIComponent(window.getSelection())"
     end
 
-    # layout/formatters
-    def block_content_for(html_section=:default, &block)
-        instance_variable_set "@_content_for_#{html_section}", block
-    end
-
-    # Here's a little technique you can use to support multiple layouts within a Camping app.
+   # Here's a little technique you can use to support multiple layouts within a Camping app.
     def layout
         @current_layout ||= :default_layout
         send("#{@current_layout}"){ yield }

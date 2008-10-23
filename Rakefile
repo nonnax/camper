@@ -8,7 +8,7 @@ include FileUtils
 
 spec=Gem::Specification.new do |s|
   s.name = %q{camper}
-  s.version = "0.1.1"
+  s.version = "0.2.0"
   s.date = Time.now.strftime("%x")
   s.summary = %q{Camper}
   s.email = %q{ironald@gmail.com}
@@ -16,7 +16,7 @@ spec=Gem::Specification.new do |s|
   s.description = %q{Camper: Simple camping deployment}
   s.has_rdoc = true
   s.authors = ["Ronald Evangelista"]
-  s.files =   %w|Rakefile README CHANGELOG lib/camper.rb lib/camper/camper_page_caching.rb lib/camper/camper_helpers.rb|
+  s.files =   %w|Rakefile README CHANGELOG lib/camper.rb lib/camper/crest.rb lib/camper/camper_page_caching.rb lib/camper/camper_helpers.rb|
   s.add_dependency(%q<camping>, [">= 1.9.0"])
 end
 
