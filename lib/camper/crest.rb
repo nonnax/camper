@@ -23,7 +23,11 @@ module CRestful
            gmethod, a=case id
                       when nil        then ['list', []]
                       when 'new', '0' then ['new',  []]
-                      else                 ['read', [a.first, action]]
+                      else
+                        case action
+                        when 'edit' then ['edit', [a.first]]
+                        else             ['read', [a.first, action]]
+                        end
                       end
          end
          super(*a)
