@@ -56,8 +56,9 @@ module Camping
         end
 
 
-        def init
-            @app.send(:include, CRestful)     # makes Restful magic
+        def init(opts={})
+            @app.send(:include, CRestful) if opts[:restful]    # makes Restful magic if u it want to
+
             @app.module_eval do
                 Mab.set(:indent, 1) #debug html
             end
@@ -76,14 +77,14 @@ module Camping
             end
         end
 
-        def goes(symbol)
+        def goes(symbol,opts={})
             # this is your camping app
             Camping._old_goes_ symbol
 
             @app_name  = symbol.to_s.underscore
             @app       = symbol.to_s.constantize
             @timestamp = Time.now.strftime("%Y%m%d")
-            init
+            init opts
         end
 
         def start(opts={})
