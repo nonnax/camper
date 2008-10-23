@@ -146,6 +146,10 @@ module CRestful
                 input :type => 'submit', :value => text
             end
         end
+        # layout/formatters
+        def _content_for(html_section=:default, &block)
+            instance_variable_set "@_content_for_#{html_section}", block
+        end
 
         # helper method for form-based a-like href links for GET type requests (LIST, READ, {NEW})
         def _a(*args, &block)
