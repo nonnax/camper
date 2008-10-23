@@ -62,6 +62,9 @@ module CRestful
 #        # GET '/posts/1'
 #        def read(id, action)
 #        end
+#        # GET '/posts/1/edit'
+#        def edit(id)
+#        end
 #        # pseudo-rest methods
 #        # GET '/posts/new'
 #        # GET '/posts/0' plays well with AR since find with id==0 is not allowed
@@ -77,6 +80,7 @@ module CRestful
          #         # you need to define the following methods:
          #         def new;end
          #         def read(id, action);end
+         #         def edit(id);end
          #         def list;end
          #         def post(id=nil);end
          #         def put(id);end
