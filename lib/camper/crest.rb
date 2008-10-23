@@ -1,12 +1,7 @@
-# ==Camping REST == CREST
+# ==Camping REST == CRestful
 # Yet another RESTful support for Camping Apps
 #
 
-class Object #:nodoc:
-    def meta_def(m,&b) #:nodoc:
-        (class<<self;self end).send(:define_method,m,&b)
-    end
-end
 module CRestful
     def self.included(base) # +nodoc+
         base::Controllers.send :extend,  CRestful::ClassMethods
@@ -166,8 +161,8 @@ module CRestful
     end
 end
 
-Camping::S << %{
-    module Camping
-        include CRestful
-    end
-}
+#Camping::S << %{
+#    module Camping
+#        include CRestful
+#    end
+#}
