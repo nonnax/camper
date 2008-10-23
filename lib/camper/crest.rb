@@ -27,7 +27,7 @@ module CRestful
                       end
          end
          super(*a)
-         gmethod && (@body=send(gmethod, *a)) 
+         gmethod && (@body=send(gmethod, *a))
          self
     end
 
@@ -156,6 +156,6 @@ end
 
 Camping::S << %{
     module Camping
-        include Crestful
+        include CRestful
     end
 }
