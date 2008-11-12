@@ -110,8 +110,7 @@ module Camping
             # database connection configuration
 
             app::Models::Base.establish_connection opts
-
-            #        require 'ar-extensions'   #comment me out if you need this activerecord extension
+            require 'ar-extensions' if opts[:ar_extensions] #if you need this activerecord extension
 
             if logger
                 app::Models::Base.colorize_logging = false

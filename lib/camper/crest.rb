@@ -124,19 +124,18 @@ module CRestful
     module MarkabyHelpers
         # Modifies Markaby's 'form' generator so that if a 'method' parameter
         # is supplied, a hidden '_method' input is automatically added.
-        # -- ripped-off the mailing-list archives :-)
-
         def form(*args, &block)
-            options = args[0] if args && args[0] && args[0].kind_of?(Hash)
-            inside = capture( &block)
+            options = args.pop if args.last.is_a?(Hash)
             if options && options.has_key?(:method)
-                inside = input(:type => 'hidden', :name => '_method', :value => options[:method]) +
-                inside
+                block =  proc do
+                   input(:type => 'hidden', :name => '_method', :value => options[:method])
+                   block.call
+                end
                 if %w[put delete].include?(options[:method].to_s)
                     options[:method] = 'post'
                 end
             end
-            tag!(:form, options || args[0]) {inside}
+            super
         end
         # helper method for form-based a-like href links for POST type requests (PUT, DELETE, CREATE?)
         def _button(*args, &block)

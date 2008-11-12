@@ -8,7 +8,7 @@ include FileUtils
 
 spec=Gem::Specification.new do |s|
   s.name = %q{camper}
-  s.version = "0.2.0"
+  s.version = "0.2.2"
   s.date = Time.now.strftime("%x")
   s.summary = %q{Camper}
   s.email = %q{ironald@gmail.com}
